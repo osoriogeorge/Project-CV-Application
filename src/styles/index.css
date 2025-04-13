@@ -1,0 +1,48 @@
+/* 1. Estilos base del documento */
+:root {
+  --color-primary: #3498db; /* Ejemplo: azul para botones/títulos */
+  --color-text: #333;
+  --color-border: #e0e0e0;
+}
+
+body {
+  margin: 0;
+  font-family: "Arial", sans-serif;
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: #f9f9f9; /* Fondo claro para el CV */
+}
+
+/* 2. Normalización de elementos clave (evitar inconsistencias) */
+*,
+*::before,
+*::after {
+  box-sizing: border-box; /* ¡Obligatorio! Evita problemas con anchos */
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+/* 3. Estilos para impresión (útil para CVs) */
+@media print {
+  body {
+    padding: 0;
+    background: white !important;
+    color: black !important;
+  }
+  .no-print {
+    display: none !important; /* Oculta elementos en la versión impresa */
+  }
+}
+
+/* 4. Utilidades globales (opcional) */
+.mt-2 {
+  margin-top: 0.5rem;
+}
+.text-center {
+  text-align: center;
+}
