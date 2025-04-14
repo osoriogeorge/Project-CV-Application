@@ -1,11 +1,10 @@
 import "./styles/App.css";
-import PersonalInfo from "./components//PersonalInformation/PersonalInformation";
+import CVBuilder from "./components/CVBuilder/CVBuilder.jsx";
 
 function App() {
   return (
     <>
-      <h1>CV Application</h1>
-      <PersonalInfo />
+      <CVBuilder />
     </>
   );
 }

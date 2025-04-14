@@ -1,6 +1,6 @@
 /* 1. Estilos base del documento */
 :root {
-  --color-primary: #3498db; /* Ejemplo: azul para botones/títulos */
+  --color-primary: #3498db;
   --color-text: #333;
   --color-border: #e0e0e0;
 }

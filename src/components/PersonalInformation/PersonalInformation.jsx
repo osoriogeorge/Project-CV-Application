@@ -1,124 +1,218 @@
-import { useId } from "react";
+import { useId, useState } from "react";
 import "./PersonalInformation.css";
-import { useState } from "react";
+import FormField from "../FormField/FormField.jsx";
+import Button from "../Button/Button.jsx";
 
 export default function PersonalInfo({ onSave }) {
+  const [isCollapsed, setIsCollapsed] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
-    linkedin: "",
-    age: "",
+    personalWebsite: "",
   });
 
   const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false); // State for submission status
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
-  const ids = {
-    name: useId(),
-    email: useId(),
-    phone: useId(),
-    linkedin: useId(),
-    age: useId(),
-  };
+  // Generación de IDs únicos para accesibilidad
+  const nameId = useId();
+  const emailId = useId();
+  const phoneId = useId();
+  const websiteId = useId();
+  const collapseButtonId = useId(); // ID for the collapse button
 
-  const validate = () => {
+  // Validación del formulario
+  const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.name.trim()) newErrors.name = "Nombre requerido";
-    else if (formData.name.length < 2) newErrors.name = "Mínimo 2 caracteres";
-
-    if (!formData.email) newErrors.email = "Email requerido";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Email inválido";
+    // Validación de nombre
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required";
+    } else if (formData.name.trim().length < 2) {
+      newErrors.name = "Name must be at least 2 characters";
     }
 
-    if (!formData.phone) newErrors.phone = "Teléfono requerido";
-    else if (!/^\d{9,15}$/.test(formData.phone)) {
-      newErrors.phone = "9-15 dígitos requeridos";
+    // Validación de email
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Please enter a valid email";
     }
 
-    if (formData.linkedin && !/linkedin\.com\/in\/.+/.test(formData.linkedin)) {
-      newErrors.linkedin = "URL de LinkedIn inválida";
+    // Validación de teléfono
+    if (!formData.phone.trim()) {
+      newErrors.phone = "Phone number is required";
+    } else if (!/^\+?[\d\s-]{8,}$/.test(formData.phone)) {
+      newErrors.phone = "Please enter a valid phone number (min 8 digits)";
+    }
+
+    // Validación de website (opcional)
+    if (
+      formData.personalWebsite &&
+      !/^https?:\/\/.+\..+/.test(formData.personalWebsite)
+    ) {
+      newErrors.personalWebsite =
+        "Please enter a valid URL (include http:// or https://)";
     }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  // Manejo del envío del formulario
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validate()) {
-      setIsSubmitting(true); // Set submitting state to true
-      // Simular envío a API
-      setTimeout(() => {
-        onSave?.(formData);
-        setIsSubmitting(false); // Set submitting state back to false
-      }, 1000);
+    setIsSubmitting(true);
+    setIsSuccess(false);
+
+    if (validateForm()) {
+      try {
+        await onSave(formData);
+        setIsSuccess(true);
+        setTimeout(() => setIsSuccess(false), 3000); // Oculta el mensaje después de 3 segundos
+      } catch (error) {
+        console.error("Save failed:", error);
+        setErrors({ submit: "Failed to save. Please try again." });
+      } finally {
+        setIsSubmitting(false);
+      }
+    } else {
+      setIsSubmitting(false);
     }
   };
 
+  // Manejo de cambios en los campos
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    // Clear error when typing
+    // Limpiar error cuando el usuario empieza a escribir
     if (errors[name]) setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
+  // Validación cuando el campo pierde el foco
+  const handleBlur = (e) => {
+    const { name } = e.target;
+    if (!formData[name] && !errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: `${name} is required` }));
+    }
+  };
+
+  const toggleCollapse = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
   return (
-    <form onSubmit={handleSubmit} className="personal-form">
-      <fieldset>
-        <legend>Información Personal</legend>
+    <div className="form-container">
+      <div className="form-header">
+        <h2 className="personal-info-title">Personal Information</h2>
+        <Button
+          id={collapseButtonId}
+          type="button"
+          onClick={toggleCollapse}
+          className="collapse-button"
+          aria-expanded={!isCollapsed}
+          aria-controls="personal-info-section"
+        >
+          {isCollapsed
+            ? "Show Personal Information"
+            : "Hide Personal Information"}
+        </Button>
+      </div>
 
-        <FormField
-          id={ids.name}
-          label="Nombre Completo*"
-          name="name"
-          type="text"
-          value={formData.name}
-          onChange={handleChange}
-          error={errors.name}
-          required
-        />
+      {!isCollapsed && (
+        <div id="personal-info-section" className="personal-info-section">
+          {isSuccess && (
+            <div className="success-message">
+              Your information has been saved successfully!
+            </div>
+          )}
 
-        <FormField
-          id={ids.email}
-          label="Email*"
-          name="email"
-          type="email"
-          value={formData.email}
-          onChange={handleChange}
-          error={errors.email}
-          required
-        />
+          {errors.submit && (
+            <div className="error-message">{errors.submit}</div>
+          )}
 
-        <FormField
-          id={ids.phone}
-          label="Teléfono*"
-          name="phone"
-          type="tel"
-          value={formData.phone}
-          onChange={handleChange}
-          error={errors.phone}
-          required
-          placeholder="Ej: 123456789"
-        />
+          <form
+            onSubmit={handleSubmit}
+            noValidate
+            className="personal-info-form"
+          >
+            <FormField
+              id={nameId}
+              label="Full Name:"
+              name="name"
+              type="text"
+              value={formData.name}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={errors.name}
+              required
+              placeholder="Your full name"
+              autoComplete="name"
+            />
 
-        <FormField
-          id={ids.linkedin}
-          label="LinkedIn"
-          name="linkedin"
-          type="url"
-          value={formData.linkedin}
-          onChange={handleChange}
-          error={errors.linkedin}
-          placeholder="https://linkedin.com/in/yourprofile"
-        />
+            <FormField
+              id={emailId}
+              label="Email:"
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={errors.email}
+              required
+              placeholder="your.email@example.com"
+              autoComplete="email"
+            />
 
-        <div className="form-actions">
-          <Button isSubmitting={isSubmitting} />
+            <FormField
+              id={phoneId}
+              label="Phone Number:"
+              name="phone"
+              type="tel"
+              value={formData.phone}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={errors.phone}
+              required
+              placeholder="+33 6 XX XX XX XX"
+              autoComplete="tel"
+            />
+
+            <FormField
+              id={websiteId}
+              label="Personal Website:"
+              name="personalWebsite"
+              type="url"
+              value={formData.personalWebsite}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={errors.personalWebsite}
+              placeholder="https://your-website.com"
+              autoComplete="url"
+            />
+
+            <div className="form-actions">
+              <Button
+                variant="save"
+                type="submit"
+                disabled={isSubmitting}
+                className="submit-button"
+              >
+                {isSubmitting ? (
+                  <span className="button-loading">
+                    <span className="spinner"></span>
+                    Saving...
+                  </span>
+                ) : (
+                  "Save Information"
+                )}
+              </Button>
+            </div>
+          </form>
         </div>
-      </fieldset>
-    </form>
+      )}
+    </div>
   );
 }

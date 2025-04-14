@@ -1,0 +1,72 @@
+.form-field {
+  padding: 20px;
+  margin-bottom: 1.8rem;
+  width: 100%;
+  position: relative;
+}
+
+.form-field label {
+  display: block;
+  margin-bottom: 0.6rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #4a5568;
+  letter-spacing: 0.025em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.form-field:hover label {
+  color: #2d3748;
+}
+
+.form-field input {
+  width: 100%;
+  padding: 0.85rem 1.2rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background-color: #fff;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  color: #1a202c;
+}
+
+.form-field input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+/* Label animado cuando el input está enfocado */
+.form-field input:focus + label,
+.form-field input:not(:placeholder-shown) + label {
+  color: #6366f1;
+  transform: translateY(-2px);
+}
+
+.form-field input::placeholder {
+  color: #a0aec0;
+  opacity: 1;
+}
+
+.error-message {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #ef4444;
+  font-weight: 500;
+}
+
+/* Estilo para errores */
+.form-field.error input {
+  border-color: #ef4444;
+  background-color: #fef2f2;
+}
+
+.form-field.error input:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
+.form-field.error label {
+  color: #ef4444;
+}
