@@ -6,8 +6,6 @@ body {
 }
 
 h1 {
-  background-color: #4caf50;
-  color: white;
   padding: 1rem;
   text-align: center;
 }
@@ -24,4 +22,87 @@ footer {
   position: fixed;
   bottom: 0;
   width: 100%;
+}
+
+.cv-builder {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+
+  margin: 0 auto;
+  padding: 20px;
+  gap: 30px;
+}
+
+.cv-forms {
+  width: 50%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+}
+
+.form-section {
+  box-sizing: border-box;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.form-container {
+  width: 100%;
+}
+
+.cv-preview-container {
+  width: 50%;
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cv-preview {
+  font-family: "Arial", sans-serif;
+  line-height: 1.6;
+}
+
+.cv-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.cv-section {
+  margin-bottom: 25px;
+}
+
+.cv-section h2 {
+  border-bottom: 2px solid #eee;
+  padding-bottom: 5px;
+  color: #2c3e50;
+}
+
+.cv-experience,
+.cv-education {
+  margin-bottom: 15px;
+}
+
+.cv-experience h3,
+.cv-education h3 {
+  margin-bottom: 5px;
+}
+
+@media (min-width: 992px) {
+  .cv-builder {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .cv-forms {
+    flex: 1;
+    position: sticky;
+    top: 20px;
+  }
+
+  .cv-preview {
+    flex: 1;
+  }
 }

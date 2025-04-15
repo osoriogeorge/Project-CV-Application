@@ -107,18 +107,17 @@ export default function PersonalInfo({ onSave }) {
     <div className="form-container">
       <div className="form-header">
         <h2 className="personal-info-title">Personal Information</h2>
-        <Button
+        <button
           id={collapseButtonId}
           type="button"
           onClick={toggleCollapse}
           className="collapse-button"
           aria-expanded={!isCollapsed}
           aria-controls="personal-info-section"
+          style={{ fontSize: "1.2em" }}
         >
-          {isCollapsed
-            ? "Show Personal Information"
-            : "Hide Personal Information"}
-        </Button>
+          {isCollapsed ? "\u25BE" : "\u25B4"}{" "}
+        </button>
       </div>
 
       {!isCollapsed && (

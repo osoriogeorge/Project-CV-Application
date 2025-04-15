@@ -114,16 +114,17 @@ export default function EducationForm({ onUpdateEducation }) {
     <div className="form-container">
       <div className="form-header">
         <h2 className="form-title">Education</h2>
-        <Button
+        <button
           id={collapseButtonId}
           type="button"
           onClick={toggleCollapse}
           className="collapse-button"
           aria-expanded={!isCollapsed}
-          aria-controls="education-section"
+          aria-controls="personal-info-section"
+          style={{ fontSize: "1.2em" }}
         >
-          {isCollapsed ? "Show Education" : "Hide Education"}
-        </Button>
+          {isCollapsed ? "\u25BE" : "\u25B4"}{" "}
+        </button>
       </div>
 
       {!isCollapsed && (

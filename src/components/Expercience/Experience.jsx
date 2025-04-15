@@ -134,16 +134,17 @@ export default function ExperienceForm({ onUpdateExperience }) {
     <div className="form-container">
       <div className="form-header">
         <h2 className="form-title">Work Experience</h2>
-        <Button
+        <button
           id={collapseButtonId}
           type="button"
           onClick={toggleCollapse}
           className="collapse-button"
           aria-expanded={!isCollapsed}
-          aria-controls="experience-section"
+          aria-controls="personal-info-section"
+          style={{ fontSize: "1.2em" }}
         >
-          {isCollapsed ? "Show Work Experience" : "Hide Work Experience"}
-        </Button>
+          {isCollapsed ? "\u25BE" : "\u25B4"}{" "}
+        </button>
       </div>
 
       {!isCollapsed && (
