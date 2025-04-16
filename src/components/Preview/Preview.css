@@ -1,0 +1,159 @@
+/* Preview.css */
+
+.cv-preview-container {
+  width: 50%;
+  background: #f8f9fa; /* Fondo gris claro */
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada */
+}
+
+.cv-preview {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* Fuente más moderna y legible */
+  line-height: 1.7; /* Ligero aumento del interlineado para claridad */
+  color: #333; /* Color de texto principal más serio */
+}
+
+.cv-header {
+  background-color: #343a40; /* Fondo oscuro y serio para el encabezado */
+  color: white; /* Texto blanco en el encabezado */
+  text-align: center;
+  padding: 20px 0; /* Más padding vertical */
+  margin-bottom: 30px;
+  border-radius: 6px 6px 0 0; /* Bordes redondeados solo en la parte superior */
+}
+
+.cv-header-content {
+  padding: 20px;
+}
+
+.cv-name {
+  font-size: 2.5em; /* Nombre más grande */
+  margin-bottom: 10px;
+  font-weight: bold; /* Nombre en negrita */
+}
+
+.cv-contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px; /* Espacio entre los elementos de contacto */
+  margin-top: 15px;
+}
+
+.cv-contact-item {
+  font-size: 0.95em;
+  color: #eee; /* Color de texto más claro para el contacto */
+}
+
+.cv-contact-item a {
+  color: #add8e6; /* Color azul claro para los enlaces */
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+.cv-contact-item a:hover {
+  color: #87ceeb; /* Color azul más claro al pasar el ratón */
+}
+
+.cv-section {
+  margin-bottom: 30px; /* Más margen inferior entre secciones */
+  padding-bottom: 20px; /* Añade un poco de padding inferior a las secciones */
+  border-bottom: 1px solid #e0e0e0; /* Línea divisoria más sutil */
+}
+
+.cv-section:last-child {
+  border-bottom: none; /* Elimina la línea divisoria de la última sección */
+  padding-bottom: 0;
+  margin-bottom: 25px; /* Reduce un poco el margen de la última sección */
+}
+
+.cv-section-title {
+  font-size: 1.8em; /* Título de sección más grande */
+  color: #343a40; /* Color de título más serio */
+  border-bottom: 3px solid #007bff; /* Línea inferior con color primario */
+  padding-bottom: 8px;
+  margin-bottom: 15px;
+  font-weight: bold; /* Título en negrita */
+}
+
+.cv-experience,
+.cv-education-item {
+  margin-bottom: 20px; /* Más margen inferior para los elementos */
+  padding: 15px;
+  background-color: white; /* Fondo blanco para los elementos */
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08); /* Sutil sombra para los elementos */
+}
+
+.cv-experience-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 10px;
+}
+
+.cv-experience-title,
+.cv-education-degree {
+  font-size: 1.2em;
+  color: #2c3e50;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.cv-experience-meta {
+  color: #555;
+  font-size: 0.9em;
+  margin-bottom: 10px;
+}
+
+.cv-experience-company {
+  font-weight: bold;
+}
+
+.cv-experience-dates {
+  font-style: italic;
+}
+
+.cv-experience-description p {
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.cv-education-meta {
+  color: #555;
+  font-size: 0.9em;
+  margin-bottom: 10px;
+}
+
+.cv-education-institution {
+  font-weight: bold;
+}
+
+.cv-education-dates {
+  font-style: italic;
+}
+
+.cv-description {
+  line-height: 1.7;
+  color: #444;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 992px) {
+  .cv-builder {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .cv-forms {
+    flex: 1;
+    position: sticky;
+    top: 20px;
+  }
+
+  .cv-preview-container {
+    flex: 1;
+    margin-left: 30px;
+  }
+}

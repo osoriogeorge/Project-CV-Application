@@ -1,10 +1,10 @@
 import React, { useState, useId } from "react";
+import "./Education.css";
 import FormField from "../FormField/FormField.jsx";
 import Button from "../Button/Button.jsx";
-import "./Education.css";
 
-export default function EducationForm({ onUpdateEducation }) {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+// Recibe onInputChange como prop
+export default function EducationForm({ onUpdateEducation, onInputChange }) {
   const [educationList, setEducationList] = useState([
     { id: Date.now(), school: "", degree: "", startDate: "", endDate: "" },
   ]);
@@ -17,7 +17,6 @@ export default function EducationForm({ onUpdateEducation }) {
   const degreeId = useId();
   const startDateId = useId();
   const endDateId = useId();
-  const collapseButtonId = useId(); // ID for the collapse button
 
   const handleAddEducation = () => {
     setEducationList([
@@ -28,7 +27,10 @@ export default function EducationForm({ onUpdateEducation }) {
   };
 
   const handleRemoveEducation = (id) => {
-    setEducationList(educationList.filter((edu) => edu.id !== id));
+    const newEducationList = educationList.filter((edu) => edu.id !== id);
+    setEducationList(newEducationList);
+    // Llama a onInputChange con la lista de educación actualizada
+    onInputChange(newEducationList);
     setErrors(
       errors.filter(
         (err, index) =>
@@ -43,6 +45,8 @@ export default function EducationForm({ onUpdateEducation }) {
       i === index ? { ...edu, [name]: value } : edu
     );
     setEducationList(updatedEducationList);
+    // Llama a onInputChange con la lista de educación actualizada
+    onInputChange(updatedEducationList);
     // Clear error for this field if it exists
     const updatedErrors = errors.map((err, i) =>
       i === index ? { ...err, [name]: "" } : err
@@ -51,7 +55,7 @@ export default function EducationForm({ onUpdateEducation }) {
   };
 
   const handleBlur = (index, name, value) => {
-    if (!value && !errors[index]?.hasOwnProperty(name)) {
+    if (!value && !Object.prototype.hasOwnProperty.call(errors[index], name)) {
       const updatedErrors = [...errors];
       updatedErrors[index] = {
         ...updatedErrors[index],
@@ -106,133 +110,110 @@ export default function EducationForm({ onUpdateEducation }) {
     }
   };
 
-  const toggleCollapse = () => {
-    setIsCollapsed(!isCollapsed);
-  };
-
   return (
     <div className="form-container">
-      <div className="form-header">
-        <h2 className="form-title">Education</h2>
-        <button
-          id={collapseButtonId}
-          type="button"
-          onClick={toggleCollapse}
-          className="collapse-button"
-          aria-expanded={!isCollapsed}
-          aria-controls="personal-info-section"
-          style={{ fontSize: "1.2em" }}
-        >
-          {isCollapsed ? "\u25BE" : "\u25B4"}{" "}
-        </button>
-      </div>
+      <div id="education-section" className="education-section">
+        {isSuccess && (
+          <div className="success-message">
+            Your education information has been saved successfully!
+          </div>
+        )}
 
-      {!isCollapsed && (
-        <div id="education-section" className="education-section">
-          {isSuccess && (
-            <div className="success-message">
-              Your education information has been saved successfully!
-            </div>
-          )}
+        {errors.some((err) => err?.submit) && (
+          <div className="error-message">
+            {errors.find((err) => err?.submit)?.submit}
+          </div>
+        )}
 
-          {errors.some((err) => err?.submit) && (
-            <div className="error-message">
-              {errors.find((err) => err?.submit)?.submit}
-            </div>
-          )}
-
-          <form onSubmit={handleSubmit} noValidate className="education-form">
-            {educationList.map((education, index) => (
-              <div key={education.id} className="education-entry">
+        <form onSubmit={handleSubmit} noValidate className="education-form">
+          {educationList.map((education, index) => (
+            <div key={education.id} className="education-section">
+              <FormField
+                id={`${schoolId}-${index}`}
+                label="School Name:"
+                name="school"
+                value={education.school}
+                onChange={(e) => handleChange(index, e)}
+                onBlur={(e) => handleBlur(index, "school", e.target.value)}
+                error={errors[index]?.school}
+                required
+                placeholder="e.g., University of Paris"
+              />
+              <FormField
+                id={`${degreeId}-${index}`}
+                label="Degree/Title:"
+                name="degree"
+                value={education.degree}
+                onChange={(e) => handleChange(index, e)}
+                onBlur={(e) => handleBlur(index, "degree", e.target.value)}
+                error={errors[index]?.degree}
+                required
+                placeholder="e.g., Master's in Computer Science"
+              />
+              <div className="date-fields">
                 <FormField
-                  id={`${schoolId}-${index}`}
-                  label="School Name:"
-                  name="school"
-                  value={education.school}
+                  id={`${startDateId}-${index}`}
+                  label="Start Date:"
+                  name="startDate"
+                  type="date"
+                  value={education.startDate}
                   onChange={(e) => handleChange(index, e)}
-                  onBlur={(e) => handleBlur(index, "school", e.target.value)}
-                  error={errors[index]?.school}
-                  required
-                  placeholder="e.g., University of Paris"
+                  onBlur={(e) => handleBlur(index, "startDate", e.target.value)}
+                  error={errors[index]?.startDate}
+                  placeholder="YYYY-MM-DD"
                 />
                 <FormField
-                  id={`${degreeId}-${index}`}
-                  label="Degree/Title:"
-                  name="degree"
-                  value={education.degree}
+                  id={`${endDateId}-${index}`}
+                  label="End Date:"
+                  name="endDate"
+                  type="date"
+                  value={education.endDate}
                   onChange={(e) => handleChange(index, e)}
-                  onBlur={(e) => handleBlur(index, "degree", e.target.value)}
-                  error={errors[index]?.degree}
-                  required
-                  placeholder="e.g., Master's in Computer Science"
+                  onBlur={(e) => handleBlur(index, "endDate", e.target.value)}
+                  error={errors[index]?.endDate}
+                  placeholder="YYYY-MM-DD or leave blank if ongoing"
                 />
-                <div className="date-fields">
-                  <FormField
-                    id={`${startDateId}-${index}`}
-                    label="Start Date:"
-                    name="startDate"
-                    type="date"
-                    value={education.startDate}
-                    onChange={(e) => handleChange(index, e)}
-                    onBlur={(e) =>
-                      handleBlur(index, "startDate", e.target.value)
-                    }
-                    error={errors[index]?.startDate}
-                    placeholder="YYYY-MM-DD"
-                  />
-                  <FormField
-                    id={`${endDateId}-${index}`}
-                    label="End Date:"
-                    name="endDate"
-                    type="date"
-                    value={education.endDate}
-                    onChange={(e) => handleChange(index, e)}
-                    onBlur={(e) => handleBlur(index, "endDate", e.target.value)}
-                    error={errors[index]?.endDate}
-                    placeholder="YYYY-MM-DD or leave blank if ongoing"
-                  />
-                </div>
-                {educationList.length > 1 && (
-                  <Button
-                    type="button"
-                    variant="remove"
-                    onClick={() => handleRemoveEducation(education.id)}
-                    className="remove-button"
-                  >
-                    Remove Education
-                  </Button>
-                )}
               </div>
-            ))}
-            <div className="form-actions">
-              <Button
-                variant="add"
-                type="button"
-                onClick={handleAddEducation}
-                className="add-button"
-              >
-                Add Education
-              </Button>
-              <Button
-                variant="save"
-                type="submit"
-                onClick={handleSubmit}
-                disabled={isSubmitting}
-                className="save-button"
-              >
-                {isSubmitting ? (
-                  <span className="button-loading">
-                    <span className="spinner"></span>
-                    Saving...
-                  </span>
-                ) : (
-                  "Save Education"
-                )}
-              </Button>
+              {educationList.length > 1 && (
+                <Button
+                  type="button"
+                  variant="remove"
+                  onClick={() => handleRemoveEducation(education.id)}
+                  className="remove-button"
+                >
+                  Remove Education
+                </Button>
+              )}
             </div>
-          </form>
-        </div>
-      )}
+          ))}
+          <div className="form-actions">
+            <Button
+              variant="add"
+              type="button"
+              onClick={handleAddEducation}
+              className="add-button"
+            >
+              Add Education
+            </Button>
+            <Button
+              variant="save"
+              type="submit"
+              onClick={handleSubmit}
+              disabled={isSubmitting}
+              className="save-button"
+            >
+              {isSubmitting ? (
+                <span className="button-loading">
+                  <span className="spinner"></span>
+                  Saving...
+                </span>
+              ) : (
+                "Save Education"
+              )}
+            </Button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

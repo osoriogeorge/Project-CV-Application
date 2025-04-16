@@ -1,10 +1,10 @@
 import React, { useState, useId } from "react";
 import FormField from "../FormField/FormField.jsx";
 import Button from "../Button/Button.jsx";
-import "./Experience.css";
+//import "./Experience.css";
 
-export default function ExperienceForm({ onUpdateExperience }) {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+// Recibe onInputChange como prop
+export default function ExperienceForm({ onUpdateExperience, onInputChange }) {
   const [experiences, setExperiences] = useState([
     {
       id: Date.now(),
@@ -26,7 +26,6 @@ export default function ExperienceForm({ onUpdateExperience }) {
   const startDateId = useId();
   const endDateId = useId();
   const descriptionId = useId();
-  const collapseButtonId = useId(); // ID for the collapse button
 
   const handleAddExperience = () => {
     setExperiences([
@@ -59,6 +58,9 @@ export default function ExperienceForm({ onUpdateExperience }) {
     );
     setExperiences(updatedExperiences);
 
+    // Llama a onInputChange con la lista de experiencias actualizada
+    onInputChange(updatedExperiences);
+
     // Clear the error for this field if it exists
     const updatedErrors = errors.map((err, i) =>
       i === index ? { ...err, [name]: "" } : err
@@ -67,7 +69,7 @@ export default function ExperienceForm({ onUpdateExperience }) {
   };
 
   const handleBlur = (index, name, value) => {
-    if (!value && !errors[index]?.hasOwnProperty(name)) {
+    if (!value && !Object.prototype.hasOwnProperty.call(errors[index], name)) {
       const updatedErrors = [...errors];
       updatedErrors[index] = {
         ...updatedErrors[index],
@@ -126,148 +128,125 @@ export default function ExperienceForm({ onUpdateExperience }) {
     }
   };
 
-  const toggleCollapse = () => {
-    setIsCollapsed(!isCollapsed);
-  };
-
   return (
     <div className="form-container">
-      <div className="form-header">
-        <h2 className="form-title">Work Experience</h2>
-        <button
-          id={collapseButtonId}
-          type="button"
-          onClick={toggleCollapse}
-          className="collapse-button"
-          aria-expanded={!isCollapsed}
-          aria-controls="personal-info-section"
-          style={{ fontSize: "1.2em" }}
-        >
-          {isCollapsed ? "\u25BE" : "\u25B4"}{" "}
-        </button>
-      </div>
+      <div id="experience-section" className="experience-section">
+        {isSuccess && (
+          <div className="success-message">
+            Your experiences have been saved successfully!
+          </div>
+        )}
 
-      {!isCollapsed && (
-        <div id="experience-section" className="experience-section">
-          {isSuccess && (
-            <div className="success-message">
-              Your experiences have been saved successfully!
-            </div>
-          )}
+        {errors.some((err) => err.submit) && (
+          <div className="error-message">
+            {errors.find((err) => err.submit)?.submit}
+          </div>
+        )}
 
-          {errors.some((err) => err.submit) && (
-            <div className="error-message">
-              {errors.find((err) => err.submit)?.submit}
-            </div>
-          )}
+        <form onSubmit={handleSubmit} noValidate className="experience-form">
+          {experiences.map((experience, index) => (
+            <div key={experience.id} className="experience-entry">
+              <FormField
+                id={`${titleId}-${index}`}
+                label="Job Title:"
+                name="title"
+                value={experience.title}
+                onChange={(e) => handleChange(index, e)}
+                onBlur={(e) => handleBlur(index, "title", e.target.value)}
+                error={errors[index]?.title}
+                required
+                placeholder="e.g., Software Engineer"
+              />
 
-          <form onSubmit={handleSubmit} noValidate className="experience-form">
-            {experiences.map((experience, index) => (
-              <div key={experience.id} className="experience-entry">
+              <FormField
+                id={`${companyId}-${index}`}
+                label="Company:"
+                name="company"
+                value={experience.company}
+                onChange={(e) => handleChange(index, e)}
+                onBlur={(e) => handleBlur(index, "company", e.target.value)}
+                error={errors[index]?.company}
+                required
+                placeholder="e.g., Google"
+              />
+
+              <div className="date-fields">
                 <FormField
-                  id={`${titleId}-${index}`}
-                  label="Job Title:"
-                  name="title"
-                  value={experience.title}
+                  id={`${startDateId}-${index}`}
+                  label="Start Date:"
+                  name="startDate"
+                  type="date"
+                  value={experience.startDate}
                   onChange={(e) => handleChange(index, e)}
-                  onBlur={(e) => handleBlur(index, "title", e.target.value)}
-                  error={errors[index]?.title}
+                  onBlur={(e) => handleBlur(index, "startDate", e.target.value)}
+                  error={errors[index]?.startDate}
                   required
-                  placeholder="e.g., Software Engineer"
                 />
 
                 <FormField
-                  id={`${companyId}-${index}`}
-                  label="Company:"
-                  name="company"
-                  value={experience.company}
+                  id={`${endDateId}-${index}`}
+                  label="End Date:"
+                  name="endDate"
+                  type="date"
+                  value={experience.endDate}
                   onChange={(e) => handleChange(index, e)}
-                  onBlur={(e) => handleBlur(index, "company", e.target.value)}
-                  error={errors[index]?.company}
-                  required
-                  placeholder="e.g., Google"
+                  onBlur={(e) => handleBlur(index, "endDate", e.target.value)}
+                  error={errors[index]?.endDate}
+                  placeholder="Leave blank if current"
                 />
-
-                <div className="date-fields">
-                  <FormField
-                    id={`${startDateId}-${index}`}
-                    label="Start Date:"
-                    name="startDate"
-                    type="date"
-                    value={experience.startDate}
-                    onChange={(e) => handleChange(index, e)}
-                    onBlur={(e) =>
-                      handleBlur(index, "startDate", e.target.value)
-                    }
-                    error={errors[index]?.startDate}
-                    required
-                  />
-
-                  <FormField
-                    id={`${endDateId}-${index}`}
-                    label="End Date:"
-                    name="endDate"
-                    type="date"
-                    value={experience.endDate}
-                    onChange={(e) => handleChange(index, e)}
-                    onBlur={(e) => handleBlur(index, "endDate", e.target.value)}
-                    error={errors[index]?.endDate}
-                    placeholder="Leave blank if current"
-                  />
-                </div>
-
-                <FormField
-                  id={`${descriptionId}-${index}`}
-                  label="Description:"
-                  name="description"
-                  type="textarea"
-                  value={experience.description}
-                  onChange={(e) => handleChange(index, e)}
-                  placeholder="Describe your responsibilities and achievements"
-                />
-
-                {experiences.length > 1 && (
-                  <Button
-                    variant="remove"
-                    type="button"
-                    onClick={() => handleRemoveExperience(experience.id)}
-                    className="remove-button"
-                  >
-                    Remove Experience
-                  </Button>
-                )}
               </div>
-            ))}
 
-            <div className="form-actions">
-              <Button
-                variant="add"
-                type="button"
-                onClick={handleAddExperience}
-                className="add-button"
-              >
-                Add Experience
-              </Button>
+              <FormField
+                id={`${descriptionId}-${index}`}
+                label="Description:"
+                name="description"
+                type="textarea"
+                value={experience.description}
+                onChange={(e) => handleChange(index, e)}
+                placeholder="Describe your responsibilities and achievements"
+              />
 
-              <Button
-                variant="save"
-                type="submit"
-                disabled={isSubmitting}
-                className="save-button"
-              >
-                {isSubmitting ? (
-                  <span className="button-loading">
-                    <span className="spinner"></span>
-                    Saving...
-                  </span>
-                ) : (
-                  "Save Experiences"
-                )}
-              </Button>
+              {experiences.length > 1 && (
+                <Button
+                  variant="remove"
+                  type="button"
+                  onClick={() => handleRemoveExperience(experience.id)}
+                  className="remove-button"
+                >
+                  Remove Experience
+                </Button>
+              )}
             </div>
-          </form>
-        </div>
-      )}
+          ))}
+
+          <div className="form-actions">
+            <Button
+              variant="add"
+              type="button"
+              onClick={handleAddExperience}
+              className="add-button"
+            >
+              Add Experience
+            </Button>
+
+            <Button
+              variant="save"
+              type="submit"
+              disabled={isSubmitting}
+              className="save-button"
+            >
+              {isSubmitting ? (
+                <span className="button-loading">
+                  <span className="spinner"></span>
+                  Saving...
+                </span>
+              ) : (
+                "Save Experiences"
+              )}
+            </Button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

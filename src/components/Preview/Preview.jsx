@@ -1,13 +1,25 @@
 import React from "react";
+import "./Preview.css";
 
 export default function Preview({ data }) {
-  const { personalInfo = {}, experiences = [], education = [] } = data;
+  const {
+    personalInfo = {},
+    description = "",
+    experiences = [],
+    education = [],
+  } = data;
 
   // Función para formatear fechas
   const formatDate = (dateString) => {
     if (!dateString) return "";
-    const options = { year: "numeric", month: "short" };
-    return new Date(dateString).toLocaleDateString("en-US", options);
+    try {
+      const date = new Date(dateString);
+      const options = { year: "numeric", month: "short" };
+      return date.toLocaleDateString("en-US", options);
+    } catch (error) {
+      console.error("Error formatting date:", dateString, error);
+      return "Invalid Date";
+    }
   };
 
   return (
@@ -46,6 +58,14 @@ export default function Preview({ data }) {
           </div>
         </div>
       </header>
+
+      {/* Sección de descripción profesional */}
+      {description && (
+        <section className="cv-section">
+          <h2 className="cv-section-title">Professional Summary</h2>
+          <p className="cv-description">{description}</p>
+        </section>
+      )}
 
       {/* Sección de experiencia laboral */}
       {experiences.length > 0 && (
@@ -95,14 +115,17 @@ export default function Preview({ data }) {
                   {edu.degree || "Degree"}
                 </h3>
                 <div className="cv-education-meta">
-                  {edu.institution && (
+                  {edu.school && (
                     <span className="cv-education-institution">
-                      {edu.institution}
+                      {edu.school}
                     </span>
                   )}
-                  {edu.institution && edu.year && " | "}
-                  {edu.year && (
-                    <span className="cv-education-year">{edu.year}</span>
+                  {edu.school && edu.startDate && " | "}
+                  {edu.startDate && (
+                    <span className="cv-education-dates">
+                      {formatDate(edu.startDate)} -{" "}
+                      {edu.endDate ? formatDate(edu.endDate) : "Present"}
+                    </span>
                   )}
                 </div>
               </div>
