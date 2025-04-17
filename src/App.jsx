@@ -130,7 +130,6 @@ export default function App() {
       <div className="cv-preview-container">
         <Preview data={cvData} />
 
-        {/* Botón de descarga del PDF */}
         <div className="download-button-container">
           <PDFDownloadLink
             document={<MiCVPDF data={cvData} />}

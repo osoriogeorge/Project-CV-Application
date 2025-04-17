@@ -1,14 +1,14 @@
 .form-field {
-  padding: 1rem; /* Reduit le padding général pour les écrans plus petits */
-  margin-bottom: 1.5rem; /* Légère réduction de la marge */
+  padding: 1rem;
+  margin-bottom: 1.5rem;
   width: 100%;
   position: relative;
 }
 
 .form-field label {
   display: block;
-  margin-bottom: 0.4rem; /* Réduit la marge sous le label */
-  font-size: 0.85rem; /* Légèrement plus petit pour les écrans réduits */
+  margin-bottom: 0.4rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: #4a5568;
   letter-spacing: 0.025em;
@@ -21,8 +21,8 @@
 
 .form-field input {
   width: 100%;
-  padding: 0.65rem 1rem; /* Réduit le padding interne de l'input */
-  font-size: 0.9rem; /* Légèrement plus petit pour les écrans réduits */
+  padding: 0.65rem 1rem;
+  font-size: 0.9rem;
   line-height: 1.5;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
@@ -36,44 +36,41 @@
 .form-field input:focus {
   outline: none;
   border-color: #6366f1;
-  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15); /* Réduit légèrement la taille de l'ombre au focus */
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
 }
 
-/* Label animado cuando el input está enfocado */
 .form-field input:focus + label,
 .form-field input:not(:placeholder-shown) + label {
   color: #6366f1;
-  transform: translateY(-1px); /* Réduit légèrement le déplacement du label */
+  transform: translateY(-1px);
 }
 
 .form-field input::placeholder {
   color: #a0aec0;
   opacity: 1;
-  font-size: 0.85rem; /* Taille du placeholder réduite */
+  font-size: 0.85rem;
 }
 
 .error-message {
-  margin-top: 0.3rem; /* Réduit la marge au-dessus du message d'erreur */
-  font-size: 0.75rem; /* Message d'erreur plus petit */
+  margin-top: 0.3rem;
+  font-size: 0.75rem;
   color: #ef4444;
   font-weight: 500;
 }
 
-/* Estilo para errores */
 .form-field.error input {
   border-color: #ef4444;
   background-color: #fef2f2;
 }
 
 .form-field.error input:focus {
-  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.15); /* Réduit légèrement la taille de l'ombre d'erreur au focus */
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.15);
 }
 
 .form-field.error label {
   color: #ef4444;
 }
 
-/* Media queries pour les écrans plus petits */
 @media (max-width: 768px) {
   .form-field {
     padding: 0.75rem;

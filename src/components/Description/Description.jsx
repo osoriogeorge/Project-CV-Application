@@ -12,7 +12,6 @@ export default function Description({ onSave, onInputChange }) {
   const [isSuccess, setIsSuccess] = useState(false);
   const descriptionId = useId();
 
-  // Validación del formulario
   const validateForm = () => {
     const newErrors = {};
 
@@ -26,7 +25,6 @@ export default function Description({ onSave, onInputChange }) {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Manejo del envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -48,18 +46,15 @@ export default function Description({ onSave, onInputChange }) {
     }
   };
 
-  // Manejo de cambios en el campo
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    // Llama a la función onInputChange para notificar al padre del cambio
+
     onInputChange({ ...formData, [name]: value });
 
-    // Limpiar error cuando el usuario empieza a escribir
     if (errors[name]) setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
-  // Validación cuando el campo pierde el foco
   const handleBlur = (e) => {
     const { name, value } = e.target;
     if (!value.trim() && !errors[name]) {

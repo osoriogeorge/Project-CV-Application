@@ -1,9 +1,7 @@
 import React, { useState, useId } from "react";
 import FormField from "../FormField/FormField.jsx";
 import Button from "../Button/Button.jsx";
-//import "./Experience.css";
 
-// Recibe onInputChange como prop
 export default function ExperienceForm({ onUpdateExperience, onInputChange }) {
   const [experiences, setExperiences] = useState([
     {
@@ -20,7 +18,6 @@ export default function ExperienceForm({ onUpdateExperience, onInputChange }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  // Generación de IDs únicos para accesibilidad
   const titleId = useId();
   const companyId = useId();
   const startDateId = useId();
@@ -58,10 +55,8 @@ export default function ExperienceForm({ onUpdateExperience, onInputChange }) {
     );
     setExperiences(updatedExperiences);
 
-    // Llama a onInputChange con la lista de experiencias actualizada
     onInputChange(updatedExperiences);
 
-    // Clear the error for this field if it exists
     const updatedErrors = errors.map((err, i) =>
       i === index ? { ...err, [name]: "" } : err
     );
@@ -96,7 +91,7 @@ export default function ExperienceForm({ onUpdateExperience, onInputChange }) {
         newErrors[index].startDate = "Start Date is required";
         isValid = false;
       }
-      // Validación de fechas (endDate debe ser posterior a startDate si existe)
+
       if (exp.endDate && exp.startDate && exp.endDate < exp.startDate) {
         newErrors[index].endDate = "End Date must be after Start Date";
         isValid = false;

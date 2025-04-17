@@ -39,7 +39,7 @@
   transform: none !important;
 }
 
-/* Responsive adjustments (peuvent être conservées telles quelles) */
+/* Responsive adjustments */
 @media (max-width: 768px) {
   .button {
     white-space: normal;

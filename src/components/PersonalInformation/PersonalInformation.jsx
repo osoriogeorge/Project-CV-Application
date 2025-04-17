@@ -21,32 +21,27 @@ export default function PersonalInfo({ onSave, onInputChange }) {
   const phoneId = useId();
   const websiteId = useId();
 
-  // Validación del formulario
   const validateForm = () => {
     const newErrors = {};
 
-    // Validación de nombre
     if (!formData.name.trim()) {
       newErrors.name = "Name is required";
     } else if (formData.name.trim().length < 2) {
       newErrors.name = "Name must be at least 2 characters";
     }
 
-    // Validación de email
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = "Please enter a valid email";
     }
 
-    // Validación de teléfono
     if (!formData.phone.trim()) {
       newErrors.phone = "Phone number is required";
     } else if (!/^\+?[\d\s-]{8,}$/.test(formData.phone.replace(/\s/g, ""))) {
       newErrors.phone = "Please enter a valid phone number (min 8 digits)";
     }
 
-    // Validación de website (opcional)
     if (
       formData.personalWebsite &&
       !/^www.+\..+/.test(formData.personalWebsite)
@@ -58,7 +53,6 @@ export default function PersonalInfo({ onSave, onInputChange }) {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Manejo del envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -80,16 +74,13 @@ export default function PersonalInfo({ onSave, onInputChange }) {
     }
   };
 
-  // Manejo de cambios en los campos
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "phone") {
-      // Remove any non-digit characters except the leading '+'
       const cleanedValue = value
         .replace(/[^+\d]/g, "")
         .replace(/^(\+?\d+).*$/, "$1");
 
-      // Format the number (group every two digits)
       let formattedValue = cleanedValue;
       if (cleanedValue.startsWith("+")) {
         const parts = [];
@@ -110,14 +101,11 @@ export default function PersonalInfo({ onSave, onInputChange }) {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
 
-    // Llama a la función onInputChange para notificar al padre del cambio
     onInputChange({ ...formData, [name]: e.target.value });
 
-    // Limpiar error cuando el usuario empieza a escribir
     if (errors[name]) setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
-  // Validación cuando el campo pierde el foco
   const handleBlur = (e) => {
     const { name } = e.target;
     if (name === "phone") {
@@ -130,7 +118,7 @@ export default function PersonalInfo({ onSave, onInputChange }) {
           [name]: "Please enter a valid phone number (min 8 digits)",
         }));
       } else if (errors[name]) {
-        setErrors((prev) => ({ ...prev, [name]: "" })); // Clear error if it was set and focus returns
+        setErrors((prev) => ({ ...prev, [name]: "" }));
       }
     } else if (!formData[name] && !errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: `${name} is required` }));

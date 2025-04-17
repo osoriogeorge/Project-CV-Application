@@ -1,4 +1,3 @@
-/* 1. Estilos base del documento */
 :root {
   --color-primary: #3498db;
   --color-text: #333;
@@ -13,7 +12,6 @@ body {
   background-color: #f9f9f9;
 }
 
-/* 2. Normalización de elementos clave (evitar inconsistencias) */
 *,
 *::before,
 *::after {

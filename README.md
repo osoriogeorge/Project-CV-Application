@@ -1,12 +1,25 @@
-# React + Vite
+# CV Application Builder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a **React-based CV Builder** that allows users to create, preview, and download their CVs in PDF format. It is built using **Vite** for fast development and includes a modular component structure for scalability and maintainability.
 
-Currently, two official plugins are available:
+This project is part of **The Odin Project** curriculum, designed to help developers build practical skills through hands-on projects.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **Dynamic Forms**: Add and edit personal information, professional summary, work experience, and education details.
+- **Live Preview**: See real-time updates of your CV as you fill out the forms.
+- **PDF Export**: Download your CV as a professionally styled PDF using `@react-pdf/renderer`.
+- **Responsive Design**: Optimized for both desktop and mobile devices.
+- **Validation**: Form fields include validation to ensure data accuracy.
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Features
+
+- **Dynamic Forms**: Add and edit personal information, professional summary, work experience, and education details.
+- **Live Preview**: See real-time updates of your CV as you fill out the forms.
+- **PDF Export**: Download your CV as a professionally styled PDF using `@react-pdf/renderer`.
+- **Responsive Design**: Optimized for both desktop and mobile devices.
+- **Validation**: Form fields include validation to ensure data accuracy.
+
+## Project Structure
+
+The project is organized as follows:

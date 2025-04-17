@@ -3,7 +3,6 @@ import "./Education.css";
 import FormField from "../FormField/FormField.jsx";
 import Button from "../Button/Button.jsx";
 
-// Recibe onInputChange como prop
 export default function EducationForm({ onUpdateEducation, onInputChange }) {
   const [educationList, setEducationList] = useState([
     { id: Date.now(), school: "", degree: "", startDate: "", endDate: "" },
@@ -12,7 +11,6 @@ export default function EducationForm({ onUpdateEducation, onInputChange }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  // Generación de IDs únicos para accesibilidad
   const schoolId = useId();
   const degreeId = useId();
   const startDateId = useId();
@@ -29,7 +27,7 @@ export default function EducationForm({ onUpdateEducation, onInputChange }) {
   const handleRemoveEducation = (id) => {
     const newEducationList = educationList.filter((edu) => edu.id !== id);
     setEducationList(newEducationList);
-    // Llama a onInputChange con la lista de educación actualizada
+
     onInputChange(newEducationList);
     setErrors(
       errors.filter(
@@ -45,9 +43,9 @@ export default function EducationForm({ onUpdateEducation, onInputChange }) {
       i === index ? { ...edu, [name]: value } : edu
     );
     setEducationList(updatedEducationList);
-    // Llama a onInputChange con la lista de educación actualizada
+
     onInputChange(updatedEducationList);
-    // Clear error for this field if it exists
+
     const updatedErrors = errors.map((err, i) =>
       i === index ? { ...err, [name]: "" } : err
     );
