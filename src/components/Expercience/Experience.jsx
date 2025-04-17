@@ -233,16 +233,10 @@ export default function ExperienceForm({ onUpdateExperience, onInputChange }) {
               variant="save"
               type="submit"
               disabled={isSubmitting}
+              loading={isSubmitting}
               className="save-button"
             >
-              {isSubmitting ? (
-                <span className="button-loading">
-                  <span className="spinner"></span>
-                  Saving...
-                </span>
-              ) : (
-                "Save Experiences"
-              )}
+              Save Experiences
             </Button>
           </div>
         </form>

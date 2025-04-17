@@ -33,6 +33,12 @@
   gap: 1rem;
 }
 
+@media (max-width: 768px) {
+  .date-fields {
+    grid-template-columns: 1fr;
+  }
+}
+
 .form-actions {
   display: flex;
   justify-content: space-between;

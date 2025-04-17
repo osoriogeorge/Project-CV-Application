@@ -4,6 +4,8 @@ import Description from "./components/Description/Description.jsx";
 import EducationForm from "./components/Education/Education.jsx";
 import ExperienceForm from "./components/Expercience/Experience.jsx";
 import Preview from "./components/Preview/Preview.jsx";
+import MiCVPDF from "./components/MiCVPDF/MiCVPDF.jsx";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 import "./styles/App.css";
 
 export default function App() {
@@ -127,6 +129,16 @@ export default function App() {
 
       <div className="cv-preview-container">
         <Preview data={cvData} />
+
+        {/* Botón de descarga del PDF */}
+        <div className="download-button-container">
+          <PDFDownloadLink
+            document={<MiCVPDF data={cvData} />}
+            fileName="mi_cv.pdf"
+          >
+            {({ loading }) => (loading ? "Generating PDF..." : "Download PDF")}
+          </PDFDownloadLink>
+        </div>
       </div>
     </div>
   );

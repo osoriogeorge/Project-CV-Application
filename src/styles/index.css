@@ -6,18 +6,18 @@
 }
 
 body {
-  margin: 0;
+  margin: 0 auto;
   font-family: "Arial", sans-serif;
   line-height: 1.6;
   color: var(--color-text);
-  background-color: #f9f9f9; /* Fondo claro para el CV */
+  background-color: #f9f9f9;
 }
 
 /* 2. Normalización de elementos clave (evitar inconsistencias) */
 *,
 *::before,
 *::after {
-  box-sizing: border-box; /* ¡Obligatorio! Evita problemas con anchos */
+  box-sizing: border-box;
 }
 
 button,
@@ -27,7 +27,6 @@ select {
   font: inherit;
 }
 
-/* 3. Estilos para impresión (útil para CVs) */
 @media print {
   body {
     padding: 0;
@@ -35,11 +34,10 @@ select {
     color: black !important;
   }
   .no-print {
-    display: none !important; /* Oculta elementos en la versión impresa */
+    display: none !important;
   }
 }
 
-/* 4. Utilidades globales (opcional) */
 .mt-2 {
   margin-top: 0.5rem;
 }

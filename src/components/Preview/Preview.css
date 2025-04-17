@@ -2,25 +2,26 @@
 
 .cv-preview-container {
   width: 50%;
-  background: #f8f9fa; /* Fondo gris claro */
+  background: #f8f9fa;
   padding: 30px;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .cv-preview {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* Fuente más moderna y legible */
-  line-height: 1.7; /* Ligero aumento del interlineado para claridad */
-  color: #333; /* Color de texto principal más serio */
+  width: 100%;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.7;
+  color: #333;
 }
 
 .cv-header {
-  background-color: #343a40; /* Fondo oscuro y serio para el encabezado */
-  color: white; /* Texto blanco en el encabezado */
+  background-color: #343a40;
+  color: white;
   text-align: center;
-  padding: 20px 0; /* Más padding vertical */
+  padding: 20px 0;
   margin-bottom: 30px;
-  border-radius: 6px 6px 0 0; /* Bordes redondeados solo en la parte superior */
+  border-radius: 6px 6px 0 0;
 }
 
 .cv-header-content {
@@ -28,32 +29,32 @@
 }
 
 .cv-name {
-  font-size: 2.5em; /* Nombre más grande */
+  font-size: 2.5em;
   margin-bottom: 10px;
-  font-weight: bold; /* Nombre en negrita */
+  font-weight: bold;
 }
 
 .cv-contact {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px; /* Espacio entre los elementos de contacto */
+  gap: 8px;
   margin-top: 15px;
 }
 
 .cv-contact-item {
   font-size: 0.95em;
-  color: #eee; /* Color de texto más claro para el contacto */
+  color: #eee;
 }
 
 .cv-contact-item a {
-  color: #add8e6; /* Color azul claro para los enlaces */
+  color: #add8e6;
   text-decoration: none;
   transition: color 0.2s ease-in-out;
 }
 
 .cv-contact-item a:hover {
-  color: #87ceeb; /* Color azul más claro al pasar el ratón */
+  color: #87ceeb;
 }
 
 .cv-section {

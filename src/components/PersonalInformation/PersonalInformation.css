@@ -12,15 +12,34 @@
 }
 
 .personal-info-form {
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
 }
 
+.date-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .date-fields {
+    grid-template-columns: 1fr;
+  }
+}
+
 .form-actions {
-  margin-top: 1.5rem;
-  display: flex;
-  justify-content: flex-end;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .date-fields {
+    grid-template-columns: 1fr;
+  }
 }
 
 .success-message {

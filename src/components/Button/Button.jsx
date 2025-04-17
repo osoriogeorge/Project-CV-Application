@@ -10,24 +10,31 @@ export default function Button({
   type = "button",
   ariaLabel,
   icon,
+  loading = false,
+  fullWidth = false,
   ...rest
 }) {
   const variantClass = variant ? `button-${variant}` : "";
-  const buttonClasses = `button ${variantClass} ${className}`.trim();
+  const buttonClasses = `button ${variantClass} ${className} ${
+    loading ? "button-loading" : ""
+  } ${fullWidth ? "button-full-width" : ""}`.trim();
 
   return (
     <button
       className={buttonClasses}
       onClick={onClick}
-      disabled={disabled}
+      disabled={disabled || loading}
       type={type}
       aria-label={
         ariaLabel || (typeof children === "string" ? children : undefined)
       }
       {...rest}
     >
-      {icon && <span className="button-icon">{icon}</span>}
-      {children}
+      {icon && !loading && <span className="button-icon">{icon}</span>}
+      {!loading && children}
+      {loading && (
+        <span className="button-loading-spinner" aria-hidden="true" />
+      )}
     </button>
   );
 }

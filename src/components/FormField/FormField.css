@@ -1,14 +1,14 @@
 .form-field {
-  padding: 20px;
-  margin-bottom: 1.8rem;
+  padding: 1rem; /* Reduit le padding général pour les écrans plus petits */
+  margin-bottom: 1.5rem; /* Légère réduction de la marge */
   width: 100%;
   position: relative;
 }
 
 .form-field label {
   display: block;
-  margin-bottom: 0.6rem;
-  font-size: 0.95rem;
+  margin-bottom: 0.4rem; /* Réduit la marge sous le label */
+  font-size: 0.85rem; /* Légèrement plus petit pour les écrans réduits */
   font-weight: 600;
   color: #4a5568;
   letter-spacing: 0.025em;
@@ -21,8 +21,8 @@
 
 .form-field input {
   width: 100%;
-  padding: 0.85rem 1.2rem;
-  font-size: 1rem;
+  padding: 0.65rem 1rem; /* Réduit le padding interne de l'input */
+  font-size: 0.9rem; /* Légèrement plus petit pour les écrans réduits */
   line-height: 1.5;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
@@ -30,29 +30,31 @@
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
   color: #1a202c;
+  box-sizing: border-box;
 }
 
 .form-field input:focus {
   outline: none;
   border-color: #6366f1;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15); /* Réduit légèrement la taille de l'ombre au focus */
 }
 
 /* Label animado cuando el input está enfocado */
 .form-field input:focus + label,
 .form-field input:not(:placeholder-shown) + label {
   color: #6366f1;
-  transform: translateY(-2px);
+  transform: translateY(-1px); /* Réduit légèrement le déplacement du label */
 }
 
 .form-field input::placeholder {
   color: #a0aec0;
   opacity: 1;
+  font-size: 0.85rem; /* Taille du placeholder réduite */
 }
 
 .error-message {
-  margin-top: 0.5rem;
-  font-size: 0.85rem;
+  margin-top: 0.3rem; /* Réduit la marge au-dessus du message d'erreur */
+  font-size: 0.75rem; /* Message d'erreur plus petit */
   color: #ef4444;
   font-weight: 500;
 }
@@ -64,9 +66,62 @@
 }
 
 .form-field.error input:focus {
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.15); /* Réduit légèrement la taille de l'ombre d'erreur au focus */
 }
 
 .form-field.error label {
   color: #ef4444;
+}
+
+/* Media queries pour les écrans plus petits */
+@media (max-width: 768px) {
+  .form-field {
+    padding: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .form-field label {
+    font-size: 0.8rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .form-field input {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.85rem;
+  }
+
+  .form-field input::placeholder {
+    font-size: 0.8rem;
+  }
+
+  .error-message {
+    font-size: 0.7rem;
+    margin-top: 0.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-field {
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-field label {
+    font-size: 0.75rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .form-field input {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.8rem;
+  }
+
+  .form-field input::placeholder {
+    font-size: 0.75rem;
+  }
+
+  .error-message {
+    font-size: 0.65rem;
+    margin-top: 0.15rem;
+  }
 }
